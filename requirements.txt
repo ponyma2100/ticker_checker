@@ -1,2 +1,6 @@
 Flask
 Gunicorn
+requests
+schedule
+bs4
+python-dotenv

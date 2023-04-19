@@ -79,7 +79,8 @@ def checkTicket() :
         headers = {'Authorization': 'Bearer ' + LINETOKEN}
         response = requests.request("POST", url, headers=headers, data=payload)
         print(response.text)
-        
+
+    send_line_notify('start')       
     check_available_and_notify('front213', Availablefront213)
     check_available_and_notify('front214', Availablefront214)
     check_available_and_notify_213('end213', Availableend213)
