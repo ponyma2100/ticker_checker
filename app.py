@@ -18,6 +18,14 @@ def hello():
 LINETOKEN = os.getenv("LINE_TOKEN")
 
 
+def send_line_notify(msg):
+    #---------------Send Notification------------------
+    url = "https://notify-api.line.me/api/notify"
+    payload={'message':{msg}}
+    headers = {'Authorization': 'Bearer ' + LINETOKEN}
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+
 def checkTicket() :
 
     amz_headers = {
@@ -80,7 +88,6 @@ def checkTicket() :
         response = requests.request("POST", url, headers=headers, data=payload)
         print(response.text)
 
-    send_line_notify('start')       
     check_available_and_notify('front213', Availablefront213)
     check_available_and_notify('front214', Availablefront214)
     check_available_and_notify_213('end213', Availableend213)
@@ -90,6 +97,7 @@ def checkTicket() :
 #checkTicket()
 
 hello()
+send_line_notify('start!')
 
 schedule.every(1).minutes.do(checkTicket)
 while True:
