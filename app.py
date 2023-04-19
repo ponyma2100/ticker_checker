@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 def hello():
     print('start')
-    return "Start!"
+    return "Starttttt!"
 
 LINETOKEN = os.getenv("LINE_TOKEN")
 
@@ -22,6 +22,14 @@ def send_line_notify(msg):
     #---------------Send Notification------------------
     url = "https://notify-api.line.me/api/notify"
     payload={'message':{msg}}
+    headers = {'Authorization': 'Bearer ' + LINETOKEN}
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+
+def send_line_notify_hour():
+    #---------------Send Notification------------------
+    url = "https://notify-api.line.me/api/notify"
+    payload={'message':{'Hour Start!'}}
     headers = {'Authorization': 'Bearer ' + LINETOKEN}
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
@@ -97,8 +105,9 @@ def checkTicket() :
 #checkTicket()
 
 hello()
-send_line_notify('start!')
+send_line_notify('First start!')
 
+schedule.every(1).hours.do(send_line_notify_hour)
 schedule.every(1).minutes.do(checkTicket)
 while True:
     schedule.run_pending()
